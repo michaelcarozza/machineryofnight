@@ -122,7 +122,10 @@ main { padding-bottom: 4rem; }
 /* Photos */
 figure { margin: 0; }
 figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
+.card-photo { max-width: 22rem; margin: 0 0 1.5rem; }
+.card-photo img { width: 100%; height: auto; }
 .photo-row {
+  align-items: start;
   display: grid;
   gap: 1.25rem;
   grid-template-columns: 1fr;
