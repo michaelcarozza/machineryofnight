@@ -1,14 +1,37 @@
-/* Machinery of Night Co. - quiet, text-forward, light only.
-   Palette from the current site: accent #D10A0D, off-white #F4F4F2, charcoal #383838.
-   Fonts: Space Grotesk (headings) and Raleway (body) will be self-hosted in /fonts
-   once the files are added; system fallbacks are used until then. */
+/* Machinery of Night Co. - quiet, text-forward, dark.
+   Palette: black, gray, white, and the company red (#d10a0d) from the previous site.
+   Fonts (self-hosted, latin subset): Space Grotesk for headings, Raleway for body. */
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk-latin.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/raleway-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/raleway-italic-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
 
 :root {
-  --bg: #f4f4f2;
-  --ink: #000000;
-  --muted: #383838;
-  --accent: #d10a0d;
-  --rule: #cfcfca;
+  color-scheme: dark;
+  --bg: #000000;
+  --ink: #f4f4f2;
+  --muted: #b4b4b0;
+  --rule: #2b2b2b;
+  --accent: #d10a0d;       /* large type only */
+  --accent-soft: #ff5559;  /* small text, hover, focus */
   --measure: 62ch;
   --head: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
   --body: "Raleway", "Helvetica Neue", Arial, sans-serif;
@@ -16,13 +39,14 @@
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg); }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--body);
+  font-weight: 500;
   font-size: 1.0625rem;
   line-height: 1.65;
   letter-spacing: 0.01em;
@@ -31,10 +55,10 @@ body {
 img { max-width: 100%; height: auto; display: block; }
 
 a { color: var(--ink); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
-a:hover { color: var(--accent); }
+a:hover { color: var(--accent-soft); }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--accent-soft);
   outline-offset: 3px;
 }
 
@@ -79,11 +103,11 @@ a:hover { color: var(--accent); }
   padding: 0.25rem 0;
   border-bottom: 1px solid transparent;
 }
-.site-nav a:hover { border-bottom-color: var(--accent); }
+.site-nav a:hover { border-bottom-color: var(--accent-soft); }
 .site-nav a[aria-current="page"] { border-bottom-color: var(--ink); }
 
 /* Type */
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: var(--head);
   font-weight: 500;
   letter-spacing: -0.03em;
@@ -93,6 +117,7 @@ h1, h2, h3 {
 h1 { font-size: clamp(2.2rem, 7vw, 3.75rem); }
 h2 { font-size: clamp(1.6rem, 4.5vw, 2.5rem); }
 h3 { font-size: 1.15rem; letter-spacing: -0.01em; }
+h4 { font-size: 1rem; letter-spacing: -0.01em; color: var(--muted); }
 
 p { margin: 0 0 1.1rem; max-width: var(--measure); }
 
@@ -116,7 +141,8 @@ main { padding-bottom: 4rem; }
 
 .text-link { font-family: var(--head); font-size: 1.05rem; }
 
-.plain-list { list-style: none; margin: 0 0 1.5rem; padding: 0; max-width: var(--measure); }
+.list-head { margin: 1.75rem 0 0.25rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); font-family: var(--body); font-weight: 600; }
+.plain-list { list-style: none; margin: 0 0 1rem; padding: 0; max-width: var(--measure); }
 .plain-list li { padding: 0.55rem 0; border-bottom: 1px solid var(--rule); }
 
 /* Photos */
@@ -136,6 +162,16 @@ figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
 
 /* Past productions */
 .page-title { padding: 3rem 0 1rem; }
+.group { margin-top: 3rem; }
+.group-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-family: var(--body);
+  font-weight: 600;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
 .production {
   padding: 3rem 0;
   border-top: 1px solid var(--rule);
@@ -148,8 +184,7 @@ figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; }
 }
 .production .meta { font-size: 0.95rem; color: var(--muted); }
 .production .meta .year { font-family: var(--head); font-size: 1.6rem; color: var(--accent); display: block; margin-bottom: 0.4rem; }
-.production h2 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
-.tbc { background: #fff; border: 1px dashed var(--accent); padding: 0 0.3em; }
+.card-title { font-size: clamp(1.5rem, 4vw, 2.1rem); letter-spacing: -0.03em; }
 
 dl.facts { margin: 0 0 1.25rem; max-width: var(--measure); }
 dl.facts div { display: grid; grid-template-columns: 9rem 1fr; gap: 0.25rem 1rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule); }
@@ -174,7 +209,7 @@ table.credits td { font-weight: 600; }
 .steps li::before {
   content: counter(step, decimal-leading-zero);
   font-family: var(--head);
-  color: var(--accent);
+  color: var(--accent-soft);
   display: block;
   font-size: 0.85rem;
   margin-bottom: 0.25rem;
